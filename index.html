@@ -1,0 +1,922 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CFP Portal — Client Onboarding</title>
+<meta name="description" content="A centralized platform for underwriting, portfolio visibility, pipeline intelligence, and market data — built for Capital Funding Partners.">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/theme.css?v=20260513a">
+<style>
+  body { background: var(--glass-bg); }
+  .co-wrap { max-width: 1240px; margin: 0 auto; padding: 0 24px 80px; }
+
+  /* HERO */
+  .co-hero {
+    position: relative;
+    margin: 0;
+    padding: 110px 24px 110px;
+    background:
+      linear-gradient(135deg, rgba(15,41,69,0.94) 0%, rgba(21,55,92,0.88) 55%, rgba(27,129,196,0.80) 100%),
+      url('/about/images/skyline.jpg') center/cover no-repeat;
+    color: #fff;
+    overflow: hidden;
+  }
+  .co-hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 85% 15%, rgba(77,168,221,0.28) 0%, transparent 55%);
+    pointer-events: none;
+  }
+  .co-hero-inner {
+    max-width: 1240px; margin: 0 auto; padding: 0 24px; position: relative;
+    display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: center;
+  }
+  .co-eyebrow {
+    display: inline-block;
+    font-size: 11px; font-weight: 800; letter-spacing: 3.6px; text-transform: uppercase;
+    color: var(--color-blue-light); padding: 6px 14px; border: 1px solid rgba(77,168,221,0.5);
+    border-radius: 4px; margin-bottom: 28px;
+  }
+  .co-hero h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(38px, 5.4vw, 64px);
+    font-weight: 900;
+    line-height: 1.04; letter-spacing: -1.4px;
+    margin-bottom: 22px;
+  }
+  .co-hero h1 .accent { color: var(--color-blue-light); font-style: italic; font-weight: 700; }
+  .co-hero-sub {
+    font-size: 17.5px; line-height: 1.6; max-width: 620px;
+    color: rgba(255,255,255,0.88); font-weight: 400; margin-bottom: 36px;
+  }
+  .co-cta-row { display: flex; gap: 14px; flex-wrap: wrap; }
+  .co-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'Manrope', sans-serif; font-size: 13.5px; font-weight: 700;
+    letter-spacing: 0.4px; padding: 14px 22px; border-radius: 6px;
+    text-decoration: none; transition: all .18s ease; cursor: pointer; border: 1px solid transparent;
+  }
+  .co-btn-primary { background: var(--color-blue-light); color: var(--color-navy-deep); }
+  .co-btn-primary:hover { background: #fff; transform: translateY(-1px); }
+  .co-btn-ghost { background: rgba(255,255,255,0.06); color: #fff; border-color: rgba(255,255,255,0.25); }
+  .co-btn-ghost:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.45); }
+  .co-btn .arr { font-family: 'JetBrains Mono', monospace; font-size: 14px; }
+
+  /* HERO VISUAL — dashboard preview card */
+  .co-dash {
+    background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 12px; padding: 22px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+    position: relative;
+  }
+  .co-dash-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.10); margin-bottom: 18px;
+  }
+  .co-dash-head .t {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700;
+    color: var(--color-blue-light); letter-spacing: 2px; text-transform: uppercase;
+  }
+  .co-dash-head .dots { display: flex; gap: 6px; }
+  .co-dash-head .dots span { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,0.18); }
+  .co-dash-head .dots span:first-child { background: #FF5F57; }
+  .co-dash-head .dots span:nth-child(2) { background: #FEBC2E; }
+  .co-dash-head .dots span:nth-child(3) { background: #28C840; }
+  .co-dash-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
+  }
+  .co-dash-tile {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 8px; padding: 18px 16px; position: relative; overflow: hidden;
+    transition: all .2s ease;
+  }
+  .co-dash-tile::before {
+    content: ''; position: absolute; top: 0; left: 0; height: 2px; width: 36px;
+    background: linear-gradient(90deg, var(--color-blue-light), transparent);
+  }
+  .co-dash-tile:hover { border-color: rgba(77,168,221,0.55); transform: translateY(-2px); }
+  .co-dash-tile .lab {
+    font-size: 10px; font-weight: 800; letter-spacing: 1.8px; text-transform: uppercase;
+    color: rgba(255,255,255,0.55); margin-bottom: 10px;
+  }
+  .co-dash-tile .nm {
+    font-family: 'Playfair Display', Georgia, serif; font-size: 18px; font-weight: 800;
+    color: #fff; letter-spacing: -0.3px; margin-bottom: 10px;
+  }
+  .co-dash-tile .row {
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 11.5px;
+    color: rgba(255,255,255,0.72); padding-top: 8px; border-top: 1px dashed rgba(255,255,255,0.10);
+  }
+  .co-dash-tile .row b { color: var(--color-blue-light); font-weight: 700; }
+  .co-dash-tile.spark { padding-bottom: 14px; }
+  .co-dash-tile svg.spark-line { display: block; margin-top: 8px; width: 100%; height: 28px; }
+
+  /* SECTION */
+  .section { padding: 96px 0 24px; }
+  .section-eyebrow {
+    font-size: 11px; font-weight: 800; letter-spacing: 3.2px; text-transform: uppercase;
+    color: var(--color-blue); margin-bottom: 18px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(30px, 3.6vw, 44px); font-weight: 800;
+    color: var(--color-navy); line-height: 1.1; letter-spacing: -0.8px; margin-bottom: 18px;
+  }
+  .section-title .accent { color: var(--color-blue); font-style: italic; font-weight: 700; }
+  .section-lede {
+    font-size: 17px; color: #475569; line-height: 1.6; max-width: 760px; font-weight: 400;
+  }
+  .section-head { margin-bottom: 48px; }
+
+  /* WHAT IT DOES — four cards */
+  .modules { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .module {
+    background: var(--glass-bg); border: 1px solid var(--color-border); border-radius: 8px;
+    padding: 32px 26px; position: relative; transition: all .22s ease;
+    display: flex; flex-direction: column;
+  }
+  .module:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(15,41,69,0.10); border-color: var(--color-blue); }
+  .module-num {
+    position: absolute; top: 22px; right: 26px;
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700;
+    color: var(--color-blue); letter-spacing: 1px;
+  }
+  .module-icon {
+    width: 46px; height: 46px; border-radius: 6px;
+    background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-blue) 100%);
+    display: flex; align-items: center; justify-content: center; color: #fff;
+    margin-bottom: 20px;
+  }
+  .module-icon svg { width: 22px; height: 22px; }
+  .module h3 {
+    font-family: 'Playfair Display', Georgia, serif; font-size: 21px; font-weight: 800;
+    color: var(--color-navy); margin-bottom: 10px; letter-spacing: -0.3px;
+  }
+  .module p { font-size: 14px; color: #475569; line-height: 1.65; flex: 1; }
+  .module-link {
+    margin-top: 16px; font-size: 12px; font-weight: 700; letter-spacing: 1.4px;
+    text-transform: uppercase; color: var(--color-blue); text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .module-link:hover { color: var(--color-navy); }
+
+  /* WHO IT HELPS — role tabs + content */
+  .roles-band {
+    background: var(--color-bg-2); border: 1px solid var(--color-border); border-radius: 10px;
+    padding: 0; overflow: hidden;
+  }
+  .role-tabs {
+    display: grid; grid-template-columns: repeat(6, 1fr);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .role-tab {
+    background: transparent; border: none; cursor: pointer;
+    padding: 18px 14px; font-family: 'Manrope', sans-serif; font-size: 12.5px; font-weight: 700;
+    color: rgba(255,255,255,0.55); letter-spacing: 0.3px;
+    border-bottom: 2px solid transparent; transition: all .15s;
+    text-align: left;
+  }
+  .role-tab:hover { color: #fff; background: rgba(255,255,255,0.03); }
+  .role-tab.active {
+    color: #fff; border-bottom-color: var(--color-blue-light);
+    background: rgba(77,168,221,0.07);
+  }
+  .role-tab .tag {
+    display: block; font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    font-weight: 700; letter-spacing: 1.8px; color: var(--color-blue-light); margin-bottom: 6px;
+  }
+  .role-panel { display: none; padding: 44px 44px 48px; color: #fff; }
+  .role-panel.active { display: grid; }
+  .role-panel {
+    grid-template-columns: 1.1fr 1fr 1fr; gap: 36px;
+  }
+  .role-panel h3 {
+    font-family: 'Playfair Display', Georgia, serif; font-size: 28px; font-weight: 800;
+    letter-spacing: -0.4px; color: #fff; margin-bottom: 10px;
+  }
+  .role-panel .lead { font-size: 14.5px; color: rgba(255,255,255,0.72); line-height: 1.6; }
+  .role-col h5 {
+    font-size: 10.5px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--color-blue-light); margin-bottom: 14px;
+  }
+  .role-col ul { list-style: none; padding: 0; margin: 0; }
+  .role-col li {
+    font-size: 13.5px; color: rgba(255,255,255,0.85); line-height: 1.55;
+    padding: 8px 0 8px 16px; position: relative;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .role-col li:last-child { border-bottom: none; }
+  .role-col li::before {
+    content: ''; position: absolute; left: 0; top: 16px;
+    width: 5px; height: 5px; border-radius: 50%; background: var(--color-blue-light);
+  }
+
+  /* WALKTHROUGH timeline */
+  .timeline {
+    position: relative; padding: 0;
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 0;
+  }
+  .timeline::before {
+    content: ''; position: absolute; top: 38px; left: 6%; right: 6%;
+    height: 2px; background: linear-gradient(90deg, var(--color-blue) 0%, var(--color-blue-light) 100%);
+    z-index: 0;
+  }
+  .step { position: relative; z-index: 1; text-align: center; padding: 0 14px; }
+  .step-dot {
+    width: 76px; height: 76px; margin: 0 auto 22px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-blue) 100%);
+    color: #fff; display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 24px; font-weight: 700;
+    box-shadow: 0 12px 28px rgba(15,41,69,0.18);
+    border: 4px solid var(--glass-bg);
+  }
+  .step h4 {
+    font-family: 'Playfair Display', Georgia, serif; font-size: 18px; font-weight: 800;
+    color: var(--color-navy); letter-spacing: -0.2px; margin-bottom: 6px;
+  }
+  .step .est {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700;
+    color: var(--color-blue); letter-spacing: 1.4px; text-transform: uppercase; margin-bottom: 10px;
+  }
+  .step p { font-size: 13px; color: #475569; line-height: 1.55; }
+  .step a.step-link {
+    display: inline-block; margin-top: 12px;
+    font-size: 11px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase;
+    color: var(--color-blue); text-decoration: none;
+  }
+  .step a.step-link:hover { color: var(--color-navy); text-decoration: underline; }
+
+  /* VALUE PROP */
+  .vp-band {
+    background: linear-gradient(135deg, var(--color-navy-deep) 0%, var(--color-navy) 60%, #1B4870 100%);
+    color: #fff; border-radius: 10px; padding: 64px 56px;
+    display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: center;
+    position: relative; overflow: hidden;
+  }
+  .vp-band::before {
+    content: ''; position: absolute; top: -40%; right: -10%;
+    width: 560px; height: 560px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(77,168,221,0.18) 0%, transparent 60%);
+  }
+  .vp-band .vp-eyebrow {
+    font-size: 11px; font-weight: 800; letter-spacing: 3.2px; text-transform: uppercase;
+    color: var(--color-blue-light); margin-bottom: 18px;
+  }
+  .vp-band h3 {
+    font-family: 'Playfair Display', Georgia, serif; font-size: clamp(28px, 3.4vw, 42px); font-weight: 800;
+    line-height: 1.1; letter-spacing: -0.6px; margin-bottom: 18px; position: relative;
+  }
+  .vp-band .vp-flow {
+    font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 600;
+    color: rgba(255,255,255,0.65); letter-spacing: 1px; margin-top: 14px;
+  }
+  .vp-band .vp-flow b { color: var(--color-blue-light); font-weight: 700; }
+  .vp-list { list-style: none; padding: 0; margin: 0; position: relative; }
+  .vp-list li {
+    padding: 14px 0 14px 28px; position: relative;
+    font-size: 15px; font-weight: 600; color: rgba(255,255,255,0.92);
+    border-bottom: 1px solid rgba(255,255,255,0.10);
+  }
+  .vp-list li:last-child { border-bottom: none; }
+  .vp-list li::before {
+    content: ''; position: absolute; left: 0; top: 22px;
+    width: 14px; height: 2px; background: var(--color-blue-light);
+  }
+
+  /* WHY IT MATTERS — clean 5 column */
+  .why { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; }
+  .why-card {
+    background: var(--glass-bg); border: 1px solid var(--color-border); border-radius: 8px;
+    padding: 28px 22px; transition: all .2s ease;
+  }
+  .why-card:hover { border-color: var(--color-blue); transform: translateY(-3px); }
+  .why-card .n {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700;
+    color: var(--color-blue); letter-spacing: 1.6px; margin-bottom: 14px;
+  }
+  .why-card h4 {
+    font-family: 'Playfair Display', Georgia, serif; font-size: 17px; font-weight: 800;
+    color: var(--color-navy); letter-spacing: -0.3px; line-height: 1.25; margin-bottom: 8px;
+  }
+  .why-card p { font-size: 12.5px; color: #475569; line-height: 1.55; }
+
+  /* PRICING / ACCESS TIERS */
+  .pricing { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .tier {
+    background: var(--glass-bg); border: 1px solid var(--color-border); border-radius: 10px;
+    padding: 36px 30px; position: relative; transition: all .22s ease;
+    display: flex; flex-direction: column;
+  }
+  .tier:hover { transform: translateY(-4px); box-shadow: 0 24px 48px rgba(15,41,69,0.12); border-color: var(--color-blue); }
+  .tier.featured {
+    background: linear-gradient(180deg, var(--color-navy) 0%, var(--color-navy-deep) 100%);
+    color: #fff; border-color: var(--color-blue-light);
+    box-shadow: 0 30px 60px rgba(15,41,69,0.20);
+  }
+  .tier.featured::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--color-blue-light) 0%, var(--color-blue) 100%);
+    border-radius: 10px 10px 0 0;
+  }
+  .tier-badge {
+    position: absolute; top: -12px; right: 24px;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700;
+    letter-spacing: 1.6px; text-transform: uppercase;
+    background: var(--color-blue-light); color: var(--color-navy-deep);
+    padding: 6px 12px; border-radius: 4px;
+  }
+  .tier-name {
+    font-family: 'Playfair Display', Georgia, serif; font-size: 22px; font-weight: 800;
+    letter-spacing: -0.3px; margin-bottom: 6px;
+  }
+  .tier.featured .tier-name { color: #fff; }
+  .tier:not(.featured) .tier-name { color: var(--color-navy); }
+  .tier-tag {
+    font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--color-blue); margin-bottom: 20px;
+  }
+  .tier.featured .tier-tag { color: var(--color-blue-light); }
+  .tier-price {
+    font-family: 'JetBrains Mono', monospace; font-size: 38px; font-weight: 700;
+    letter-spacing: -1px; line-height: 1; margin-bottom: 4px;
+  }
+  .tier:not(.featured) .tier-price { color: var(--color-navy); }
+  .tier.featured .tier-price { color: #fff; }
+  .tier-price .per {
+    font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 600;
+    color: var(--color-text-muted); letter-spacing: 0;
+  }
+  .tier.featured .tier-price .per { color: rgba(255,255,255,0.6); }
+  .tier-sub {
+    font-size: 13px; color: #475569; margin-bottom: 24px; line-height: 1.5;
+  }
+  .tier.featured .tier-sub { color: rgba(255,255,255,0.7); }
+  .tier ul { list-style: none; padding: 0; margin: 0 0 28px; flex: 1; }
+  .tier li {
+    font-size: 13.5px; line-height: 1.5; padding: 9px 0 9px 22px; position: relative;
+    color: #334155;
+  }
+  .tier.featured li { color: rgba(255,255,255,0.88); }
+  .tier li::before {
+    content: '✓'; position: absolute; left: 0; top: 9px;
+    font-size: 12px; font-weight: 700; color: var(--color-blue);
+  }
+  .tier.featured li::before { color: var(--color-blue-light); }
+  .tier-cta {
+    display: block; text-align: center; padding: 13px 18px; border-radius: 6px;
+    font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 700;
+    letter-spacing: 0.4px; text-decoration: none; transition: all .18s;
+  }
+  .tier:not(.featured) .tier-cta {
+    background: var(--color-navy); color: #fff;
+  }
+  .tier:not(.featured) .tier-cta:hover { background: var(--color-navy-deep); }
+  .tier.featured .tier-cta {
+    background: var(--color-blue-light); color: var(--color-navy-deep);
+  }
+  .tier.featured .tier-cta:hover { background: #fff; }
+
+  /* FINAL CTA */
+  .final-cta {
+    background: linear-gradient(135deg, var(--color-navy-deep) 0%, var(--color-navy) 60%, #1B4870 100%);
+    color: #fff; border-radius: 10px; padding: 72px 56px;
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .final-cta::before {
+    content: ''; position: absolute; top: -50%; left: 50%; transform: translateX(-50%);
+    width: 800px; height: 800px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(77,168,221,0.16) 0%, transparent 55%);
+  }
+  .final-cta h3 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(32px, 4vw, 48px); font-weight: 800; letter-spacing: -0.8px;
+    line-height: 1.08; margin-bottom: 16px; position: relative;
+  }
+  .final-cta h3 .accent { color: var(--color-blue-light); font-style: italic; font-weight: 700; }
+  .final-cta p {
+    font-size: 16px; line-height: 1.55; color: rgba(255,255,255,0.78);
+    max-width: 620px; margin: 0 auto 36px; position: relative;
+  }
+  .final-cta .co-cta-row { justify-content: center; position: relative; }
+
+  /* Responsive */
+  @media (max-width: 1080px) {
+    .modules { grid-template-columns: repeat(2, 1fr); }
+    .why { grid-template-columns: repeat(2, 1fr); }
+    .pricing { grid-template-columns: 1fr; }
+    .role-tabs { grid-template-columns: repeat(3, 1fr); }
+    .role-panel { grid-template-columns: 1fr; }
+    .timeline { grid-template-columns: repeat(2, 1fr); gap: 32px 16px; }
+    .timeline::before { display: none; }
+  }
+  @media (max-width: 760px) {
+    .co-hero-inner { grid-template-columns: 1fr; gap: 40px; }
+    .modules { grid-template-columns: 1fr; }
+    .why { grid-template-columns: 1fr; }
+    .role-tabs { grid-template-columns: repeat(2, 1fr); }
+    .timeline { grid-template-columns: 1fr; }
+    .vp-band, .final-cta { padding: 44px 28px; }
+    .vp-band { grid-template-columns: 1fr; gap: 28px; }
+    .role-panel { padding: 32px 24px; }
+  }
+</style>
+</head>
+<body>
+<div id="topbar"></div>
+
+<section class="co-hero">
+  <div class="co-hero-inner">
+    <div>
+      <span class="co-eyebrow">CFP Portal · Client Onboarding</span>
+      <h1>Your Multifamily <span class="accent">Investment</span> Command Center.</h1>
+      <p class="co-hero-sub">
+        A centralized platform for underwriting, portfolio visibility, pipeline intelligence,
+        and market data — built to help Capital Funding Partners evaluate opportunities
+        faster and operate with institutional discipline.
+      </p>
+      <div class="co-cta-row">
+        <a class="co-btn co-btn-primary" href="#pricing">Request Access <span class="arr">→</span></a>
+        <a class="co-btn co-btn-ghost" href="#walkthrough">Take the Tour</a>
+      </div>
+    </div>
+
+    <div class="co-dash" aria-hidden="true">
+      <div class="co-dash-head">
+        <div class="t">CFP Portal · Live</div>
+        <div class="dots"><span></span><span></span><span></span></div>
+      </div>
+      <div class="co-dash-grid">
+        <div class="co-dash-tile">
+          <div class="lab">Module 01</div>
+          <div class="nm">Underwriting Workbench</div>
+          <div class="row"><span>Active models</span><b>14</b></div>
+        </div>
+        <div class="co-dash-tile">
+          <div class="lab">Module 02</div>
+          <div class="nm">Portfolio Management</div>
+          <div class="row"><span>Properties</span><b>13 · 364u</b></div>
+        </div>
+        <div class="co-dash-tile">
+          <div class="lab">Module 03</div>
+          <div class="nm">Pipeline Intelligence</div>
+          <div class="row"><span>Pursuits</span><b>27 active</b></div>
+        </div>
+        <div class="co-dash-tile spark">
+          <div class="lab">Module 04</div>
+          <div class="nm">Market Pulse</div>
+          <svg class="spark-line" viewBox="0 0 120 28" preserveAspectRatio="none">
+            <polyline fill="none" stroke="#4DA8DD" stroke-width="2"
+              points="0,20 12,18 24,22 36,14 48,16 60,10 72,12 84,7 96,9 108,5 120,8" />
+          </svg>
+          <div class="row" style="border-top:none;padding-top:6px"><span>5yr UST</span><b>4.18%</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="co-wrap">
+
+  <!-- SECTION 1: WHAT THE PORTAL DOES -->
+  <section class="section" id="modules">
+    <div class="section-head">
+      <div class="section-eyebrow">What The Portal Does</div>
+      <h2 class="section-title">Four <span class="accent">modules</span>, one platform.</h2>
+      <p class="section-lede">
+        The CFP Portal centralizes everything we use to source, evaluate, and operate
+        multifamily investments — replacing scattered spreadsheets, PDFs, and inboxes.
+      </p>
+    </div>
+    <div class="modules">
+      <div class="module">
+        <span class="module-num">01</span>
+        <div class="module-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3z"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+        </div>
+        <h3>Acquisitions Underwriting</h3>
+        <p>Drop deal files and generate underwriting outputs, IC materials, diligence trackers, and sensitivity analysis.</p>
+        <a class="module-link" href="/acquisitions/">Open Workbench →</a>
+      </div>
+      <div class="module">
+        <span class="module-num">02</span>
+        <div class="module-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V8l7-5 7 5v13"/><path d="M9 21v-6h6v6"/></svg>
+        </div>
+        <h3>Portfolio Asset Management</h3>
+        <p>Track property performance, debt, insurance, rent trends, and distributions across the portfolio.</p>
+        <a class="module-link" href="/portfolio/">Open Portfolio →</a>
+      </div>
+      <div class="module">
+        <span class="module-num">03</span>
+        <div class="module-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l3-9 4 18 3-9h4"/></svg>
+        </div>
+        <h3>Pipeline &amp; Deal Intelligence</h3>
+        <p>Visualize active pursuits, closed deals, comps, MSA conviction scores, and target markets.</p>
+        <a class="module-link" href="/pipeline/">Open Pipeline →</a>
+      </div>
+      <div class="module">
+        <span class="module-num">04</span>
+        <div class="module-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <h3>Market Pulse</h3>
+        <p>Monitor rates, macro data, employment trends, brokerage research, and multifamily news.</p>
+        <a class="module-link" href="/news/">Open Market Pulse →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: WHO IT HELPS -->
+  <section class="section" id="audience">
+    <div class="section-head">
+      <div class="section-eyebrow">Who It Helps</div>
+      <h2 class="section-title">Built for every seat <span class="accent">at the table</span>.</h2>
+      <p class="section-lede">
+        The same data, surfaced six different ways. Pick a role — see what they care about,
+        where to start, and the primary value they get from the platform.
+      </p>
+    </div>
+
+    <div class="roles-band">
+      <div class="role-tabs" role="tablist">
+        <button class="role-tab active" data-role="inst" role="tab"><span class="tag">01</span>Institutional Partners</button>
+        <button class="role-tab" data-role="fund" role="tab"><span class="tag">02</span>Fund Managers</button>
+        <button class="role-tab" data-role="op" role="tab"><span class="tag">03</span>Regional Operators</button>
+        <button class="role-tab" data-role="br" role="tab"><span class="tag">04</span>Brokers / Deal Sources</button>
+        <button class="role-tab" data-role="lp" role="tab"><span class="tag">05</span>LPs / Capital Partners</button>
+        <button class="role-tab" data-role="an" role="tab"><span class="tag">06</span>Internal Analysts</button>
+      </div>
+
+      <div class="role-panel active" data-panel="inst">
+        <div>
+          <h3>Institutional Partners</h3>
+          <p class="lead">PE firms, family offices, and allocators evaluating CFP as a JV partner or programmatic relationship.</p>
+        </div>
+        <div class="role-col">
+          <h5>What They Care About</h5>
+          <ul>
+            <li>Repeatable underwriting discipline</li>
+            <li>Source-traced data &amp; assumptions</li>
+            <li>IC-ready deliverables</li>
+            <li>MSA conviction scoring</li>
+          </ul>
+        </div>
+        <div class="role-col">
+          <h5>Start Here · Primary Value</h5>
+          <ul>
+            <li><a href="/msa-conviction/" style="color:#fff;text-decoration:underline">MSA Conviction Rankings</a></li>
+            <li><a href="/acquisitions/" style="color:#fff;text-decoration:underline">UW Workbench</a></li>
+            <li><a href="/portfolio/" style="color:#fff;text-decoration:underline">Portfolio &amp; Track Record</a></li>
+            <li><b style="color:#4DA8DD">Value:</b> institutional-quality output, no infrastructure build</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="role-panel" data-panel="fund">
+        <div>
+          <h3>Fund Managers</h3>
+          <p class="lead">GP teams running their own funds who need visibility into pipeline, comps, and asset performance.</p>
+        </div>
+        <div class="role-col">
+          <h5>What They Care About</h5>
+          <ul>
+            <li>Deal flow velocity</li>
+            <li>Comparable transactions</li>
+            <li>Debt maturity calendar</li>
+            <li>Distribution history</li>
+          </ul>
+        </div>
+        <div class="role-col">
+          <h5>Start Here · Primary Value</h5>
+          <ul>
+            <li><a href="/pipeline/" style="color:#fff;text-decoration:underline">Pipeline Overview</a></li>
+            <li><a href="/comps/" style="color:#fff;text-decoration:underline">Sale Comps Database</a></li>
+            <li><a href="/debt/" style="color:#fff;text-decoration:underline">Debt Stack</a></li>
+            <li><b style="color:#4DA8DD">Value:</b> one pane of glass across the fund</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="role-panel" data-panel="op">
+        <div>
+          <h3>Regional Operators</h3>
+          <p class="lead">Property management and operating partners running assets on behalf of CFP and its JV partners.</p>
+        </div>
+        <div class="role-col">
+          <h5>What They Care About</h5>
+          <ul>
+            <li>Occupancy &amp; rent trends</li>
+            <li>Insurance renewal calendar</li>
+            <li>Loan maturities &amp; covenants</li>
+            <li>CapEx &amp; reserve visibility</li>
+          </ul>
+        </div>
+        <div class="role-col">
+          <h5>Start Here · Primary Value</h5>
+          <ul>
+            <li><a href="/rent-trends/" style="color:#fff;text-decoration:underline">Rent Trends</a></li>
+            <li><a href="/insurance/" style="color:#fff;text-decoration:underline">Insurance Renewals</a></li>
+            <li><a href="/portfolio/" style="color:#fff;text-decoration:underline">Property Detail Pages</a></li>
+            <li><b style="color:#4DA8DD">Value:</b> no more email-chasing for ops data</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="role-panel" data-panel="br">
+        <div>
+          <h3>Brokers &amp; Deal Sources</h3>
+          <p class="lead">Investment sales brokers and off-market sources bringing opportunities to CFP.</p>
+        </div>
+        <div class="role-col">
+          <h5>What They Care About</h5>
+          <ul>
+            <li>Buy box clarity</li>
+            <li>UW turnaround speed</li>
+            <li>Certainty of close</li>
+            <li>Comp pricing visibility</li>
+          </ul>
+        </div>
+        <div class="role-col">
+          <h5>Start Here · Primary Value</h5>
+          <ul>
+            <li><a href="/about/" style="color:#fff;text-decoration:underline">Buy Box &amp; Markets</a></li>
+            <li><a href="/comps/" style="color:#fff;text-decoration:underline">Sale Comp Database</a></li>
+            <li><a href="/msa-conviction/" style="color:#fff;text-decoration:underline">Conviction Markets</a></li>
+            <li><b style="color:#4DA8DD">Value:</b> stop pitching off-strategy deals</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="role-panel" data-panel="lp">
+        <div>
+          <h3>LPs &amp; Capital Partners</h3>
+          <p class="lead">Existing limited partners and prospective capital evaluating CFP's track record and discipline.</p>
+        </div>
+        <div class="role-col">
+          <h5>What They Care About</h5>
+          <ul>
+            <li>Portfolio transparency</li>
+            <li>Distribution history</li>
+            <li>Debt risk visibility</li>
+            <li>Market thesis</li>
+          </ul>
+        </div>
+        <div class="role-col">
+          <h5>Start Here · Primary Value</h5>
+          <ul>
+            <li><a href="/portfolio/" style="color:#fff;text-decoration:underline">Portfolio Map</a></li>
+            <li><a href="/distributions/" style="color:#fff;text-decoration:underline">Distribution History</a></li>
+            <li><a href="/news/" style="color:#fff;text-decoration:underline">Market Pulse</a></li>
+            <li><b style="color:#4DA8DD">Value:</b> institutional reporting standards</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="role-panel" data-panel="an">
+        <div>
+          <h3>Internal Analysts</h3>
+          <p class="lead">CFP team members underwriting deals, building IC materials, and managing diligence workflows.</p>
+        </div>
+        <div class="role-col">
+          <h5>What They Care About</h5>
+          <ul>
+            <li>UW model standardization</li>
+            <li>Comp pull workflow</li>
+            <li>DD tracker templates</li>
+            <li>IC memo generation</li>
+          </ul>
+        </div>
+        <div class="role-col">
+          <h5>Start Here · Primary Value</h5>
+          <ul>
+            <li><a href="/acquisitions/" style="color:#fff;text-decoration:underline">UW Workbench</a></li>
+            <li><a href="/comps/" style="color:#fff;text-decoration:underline">Comps Database</a></li>
+            <li><a href="/docs/" style="color:#fff;text-decoration:underline">Playbooks &amp; Methodology</a></li>
+            <li><b style="color:#4DA8DD">Value:</b> get productive by week one</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: WALKTHROUGH -->
+  <section class="section" id="walkthrough">
+    <div class="section-head">
+      <div class="section-eyebrow">Recommended First Walkthrough</div>
+      <h2 class="section-title">Five stops, <span class="accent">thirty minutes</span>.</h2>
+      <p class="section-lede">
+        The fastest path to understanding the platform. Each stop is self-contained — feel free
+        to skip ahead or dive deeper.
+      </p>
+    </div>
+    <div class="timeline">
+      <div class="step">
+        <div class="step-dot">01</div>
+        <h4>Home Dashboard</h4>
+        <div class="est">5 min</div>
+        <p>Snapshot of pipeline, rates, news, brokerage research, and portfolio at a glance.</p>
+        <a class="step-link" href="/">Visit →</a>
+      </div>
+      <div class="step">
+        <div class="step-dot">02</div>
+        <h4>Portfolio Map</h4>
+        <div class="est">5 min</div>
+        <p>13 owned properties, 364 units, debt and distribution detail per asset.</p>
+        <a class="step-link" href="/portfolio/">Visit →</a>
+      </div>
+      <div class="step">
+        <div class="step-dot">03</div>
+        <h4>Pipeline Overview</h4>
+        <div class="est">5 min</div>
+        <p>Active acquisitions, JV / PE pursuits, deal stage, and target close dates.</p>
+        <a class="step-link" href="/pipeline/">Visit →</a>
+      </div>
+      <div class="step">
+        <div class="step-dot">04</div>
+        <h4>MSA Conviction &amp; Comps</h4>
+        <div class="est">5 min</div>
+        <p>29 high-conviction submarkets, ranking methodology, and recent sale comps.</p>
+        <a class="step-link" href="/msa-conviction/">Visit →</a>
+      </div>
+      <div class="step">
+        <div class="step-dot">05</div>
+        <h4>UW Workbench Demo</h4>
+        <div class="est">10 min</div>
+        <p>Walk through a live underwriting model — inputs, returns, sensitivities, IC outputs.</p>
+        <a class="step-link" href="/acquisitions/">Visit →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: VALUE PROP -->
+  <section class="section">
+    <div class="vp-band">
+      <div>
+        <div class="vp-eyebrow">The Core Promise</div>
+        <h3>Drop files in. <br>Get institutional-quality outputs.</h3>
+        <div class="vp-flow"><b>OM / T-12 / Rent Roll</b> &nbsp;→&nbsp; UW Model &nbsp;→&nbsp; IC Memo &nbsp;→&nbsp; <b>Approval</b></div>
+      </div>
+      <ul class="vp-list">
+        <li>Reduce underwriting time</li>
+        <li>Standardize IC materials</li>
+        <li>Centralize market data</li>
+        <li>Improve portfolio visibility</li>
+        <li>Create repeatable investment workflows</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SECTION 5: WHY IT MATTERS -->
+  <section class="section" id="why">
+    <div class="section-head">
+      <div class="section-eyebrow">Why It Matters</div>
+      <h2 class="section-title">Better decisions, <span class="accent">faster</span>.</h2>
+      <p class="section-lede">
+        The portal isn't a brochure — it's the operating system behind every CFP investment.
+        Here's what changes when discipline and infrastructure compound.
+      </p>
+    </div>
+    <div class="why">
+      <div class="why-card">
+        <div class="n">01</div>
+        <h4>Faster deal screening</h4>
+        <p>Buy-box filters and conviction scoring kill off-strategy deals on first touch.</p>
+      </div>
+      <div class="why-card">
+        <div class="n">02</div>
+        <h4>Better visibility</h4>
+        <p>One place to see every asset, every pursuit, every maturity, every distribution.</p>
+      </div>
+      <div class="why-card">
+        <div class="n">03</div>
+        <h4>Cleaner reporting</h4>
+        <p>Institutional-grade output to LPs and JV partners — automatically, on schedule.</p>
+      </div>
+      <div class="why-card">
+        <div class="n">04</div>
+        <h4>Better data discipline</h4>
+        <p>Source-traced inputs. No fabricated numbers. Every assumption auditable.</p>
+      </div>
+      <div class="why-card">
+        <div class="n">05</div>
+        <h4>Scalable process</h4>
+        <p>Repeatable workflows that don't break as the platform grows in deals or partners.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING / ACCESS -->
+  <section class="section" id="pricing">
+    <div class="section-head">
+      <div class="section-eyebrow">Access &amp; Subscription</div>
+      <h2 class="section-title">Pick the <span class="accent">tier</span> that fits your firm.</h2>
+      <p class="section-lede">
+        Every subscription includes the full portal — underwriting, portfolio, pipeline, and
+        market data. Tiers differ on user seats, model throughput, and white-glove service.
+        Annual billing, cancel anytime after year one.
+      </p>
+    </div>
+    <div class="pricing">
+      <div class="tier">
+        <div class="tier-tag">Tier 01</div>
+        <div class="tier-name">Observer</div>
+        <div class="tier-price">$1,500<span class="per"> / mo</span></div>
+        <p class="tier-sub">For LPs, brokers, and capital partners who need read-only visibility.</p>
+        <ul>
+          <li>Full portal read access</li>
+          <li>Portfolio, pipeline, comps, MSA conviction</li>
+          <li>Market Pulse + brokerage research</li>
+          <li>2 user seats</li>
+          <li>Email support</li>
+        </ul>
+        <a class="tier-cta" href="mailto:ramzyazar@capfund1.com?subject=CFP%20Portal%20-%20Observer%20Tier">Request Access</a>
+      </div>
+      <div class="tier featured">
+        <div class="tier-badge">Most Popular</div>
+        <div class="tier-tag">Tier 02</div>
+        <div class="tier-name">Operator</div>
+        <div class="tier-price">$4,500<span class="per"> / mo</span></div>
+        <p class="tier-sub">For operators, fund managers, and JV partners running real deal flow.</p>
+        <ul>
+          <li>Everything in Observer</li>
+          <li>UW Workbench — unlimited models</li>
+          <li>IC memo + DD tracker generation</li>
+          <li>Custom MSA conviction overlays</li>
+          <li>10 user seats · priority support</li>
+          <li>Quarterly portfolio review with CFP team</li>
+        </ul>
+        <a class="tier-cta" href="mailto:ramzyazar@capfund1.com?subject=CFP%20Portal%20-%20Operator%20Tier">Start Subscription</a>
+      </div>
+      <div class="tier">
+        <div class="tier-tag">Tier 03</div>
+        <div class="tier-name">Institutional</div>
+        <div class="tier-price">Custom<span class="per"></span></div>
+        <p class="tier-sub">For institutional allocators, PE firms, and family offices.</p>
+        <ul>
+          <li>Everything in Operator</li>
+          <li>White-labeled deployment</li>
+          <li>Dedicated analyst pod</li>
+          <li>Custom data integrations (Juniper, Yardi, AppFolio)</li>
+          <li>Unlimited seats · SLA-backed support</li>
+          <li>Programmatic JV / co-invest pipeline</li>
+        </ul>
+        <a class="tier-cta" href="mailto:ramzyazar@capfund1.com?subject=CFP%20Portal%20-%20Institutional%20Tier">Book a Meeting</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6: FINAL CTA -->
+  <section class="section">
+    <div class="final-cta">
+      <h3>Subscribe to <span class="accent">institutional</span> infrastructure.</h3>
+      <p>Stop building Excel models from scratch. Start running every deal through
+         the same platform CFP uses to evaluate hundreds of millions in multifamily acquisitions.</p>
+      <div class="co-cta-row">
+        <a class="co-btn co-btn-primary" href="#pricing">Start Subscription <span class="arr">→</span></a>
+        <a class="co-btn co-btn-ghost" href="mailto:ramzyazar@capfund1.com?subject=CFP%20Portal%20Demo">Book a Live Demo</a>
+        <a class="co-btn co-btn-ghost" href="#walkthrough">Take the Tour</a>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script src="/js/nav.js?v=20260511e"></script>
+<script src="/js/ticker.js?v=20260511" defer></script>
+<script src="/js/marquee.js?v=20260511" defer></script>
+<script>
+  if (window.CFPNav && CFPNav.renderTopbar) {
+    CFPNav.renderTopbar({ subtitle: 'Client Onboarding' });
+  }
+
+  // Role tabs
+  (function () {
+    var tabs = document.querySelectorAll('.role-tab');
+    var panels = document.querySelectorAll('.role-panel');
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        var key = tab.getAttribute('data-role');
+        tabs.forEach(function (t) { t.classList.remove('active'); });
+        panels.forEach(function (p) { p.classList.remove('active'); });
+        tab.classList.add('active');
+        var panel = document.querySelector('.role-panel[data-panel="' + key + '"]');
+        if (panel) panel.classList.add('active');
+      });
+    });
+  })();
+
+  // Smooth scroll for in-page anchors
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var id = a.getAttribute('href').slice(1);
+      var el = document.getElementById(id);
+      if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+</script>
+</body>
+</html>
